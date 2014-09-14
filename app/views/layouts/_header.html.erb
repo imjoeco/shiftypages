@@ -1,0 +1,35 @@
+<% if !settings.nil? %>
+		<nav id="header" class="row">
+      <div class="columns large-11 large-centered">
+        <% if false %>
+          <a id="logo" class="image-logo" href="/"><%= settings.title %></a>
+            <% link_to settings.title,
+              root_path, 
+              id:"logo", 
+              class:"image-logo"
+            %>
+        <% else %>
+          <div class="large-7 columns small-text-center">	
+            <h1 id="logo" class="">
+              <%= link_to settings.title, root_path %> 
+            </h1>
+          </div>
+          <div class="large-5 columns right text-right small-text-center">
+            <%= user_name %><br/>
+            <div class="header-date">
+              <% if @post && !@post.published_at.nil? %>
+                <%= @post.published_at.strftime("%B %e, %Y") %>
+              <% elsif @photo && !@photo.created_at.nil? %>
+                <%= @photo.created_at.strftime("%B %e, %Y") %>
+              <% else %>
+                <%= Time.zone.now.strftime("%B %e, %Y") %>
+              <% end %>
+            </div>
+          </div>
+          <div class="columns">
+            <%= render 'layouts/nav_bar' %>
+          </div>
+        <% end %>
+      </div>
+		</nav>
+<% end %>

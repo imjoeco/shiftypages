@@ -1,0 +1,46 @@
+<html>
+<head>
+  <% if !settings.font_style.nil? & !settings.font_link.nil? %>
+    <%= settings.font_link.html_safe %>
+    <style>
+      #copy-notice{
+        <%= settings.font_style.html_safe %>
+      }
+    </style>
+  <% end %>
+  <style>
+    body{
+      margin:0px !important;
+      width:<%= @photo.ow %>px !important; 
+      height:<%= @photo.oh %>px !important;
+      overflow:hidden;
+      padding:0px !important;
+    }
+  </style>
+</head>
+<body>
+  <div style="
+      position:relative;
+      height:100%;
+      width:100%;
+      overflow:hidden;
+    "
+  >
+    <%= image_tag @photo.image.url %>
+    <% if @photo_copyright %>
+      <% text_size = (@photo_copyright.size * @photo.oh * 0.25).round %>
+      <div id="copy-notice" style="
+        overflow:visible;
+        position:absolute !important;
+        font-size:<%= "#{text_size}px" %> !important;
+        color:#<%= @photo_copyright.color %> !important;
+        top:<%= (@photo_copyright.top_offset * @photo.oh).round %> !important;
+        left:<%= (@photo_copyright.left_offset * @photo.ow).round %> !important;
+        opacity:<%= @photo_copyright.opacity %> !important;
+      ">
+        <%= @photo_copyright.notice.html_safe %>
+      </div>
+    <% end %>
+  </div>
+</body>
+</html>

@@ -1,0 +1,191 @@
+#target-list{
+  &::-webkit-scrollbar
+  {
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track
+  {
+    background: #d2d2d2;
+  }
+
+  &::-webkit-scrollbar-thumb
+  {
+    background: #222222;
+  }
+
+  //from http://stackoverflow.com/questions/9707807/how-to-force-horizontal-scrolling-in-an-html-list-using-css
+  list-style-type:none;
+  white-space:nowrap;
+  overflow-x:auto;
+  margin-top:24px;
+  padding-bottom:12px;
+
+  li{
+    display:inline;
+    margin:18px;
+
+    .active img{
+      border:3px double #222;
+    }
+  }
+}
+
+#slider-next,
+#slider-prev{
+  position:absolute;
+  top:0px;
+  height:100%; width:33%;
+  z-index:1;
+  font-size:1.75em;
+
+  &.photo-control{
+    background:rgba(255,255,255,0.0);
+    opacity:0;
+  }
+
+  .bottom-group{
+    width:100%;
+    font-size:18px;
+    position:absolute;
+    color:#ddd;
+    bottom:-18px;
+  }
+
+  .top-group{
+    margin-top:0.75em;
+    color:#ffffff;
+    color:rgba(255,255,255,0.0);
+    opacity:0.0;
+    *{
+      background:none;
+    }
+  }
+
+  &:hover,
+  &:hover *{
+    &.bottom-group,
+    &.bottom-group *{
+      color:#777;
+    }
+
+    &.top-group,
+    &.top-group *{
+      color:#e5e5e5;
+    }
+    opacity:1;
+  }
+
+  &:focus,
+  &:focus *,
+  &:active,
+  &:active *{
+    color:#222;
+    opacity:1;
+  }
+
+  &.photo-control{
+    &:before{
+      content:"";
+      display:block;
+      width:84px; height:100%;
+      background:rgba(42,42,42,0.4);
+      display:none;
+    }
+    &:after{
+      content:"";
+      width:0px; height:0px;
+      position:absolute;
+      top:45%;
+      display:none;
+    }
+
+    &:hover:before,
+    &:hover:after{
+      display:block;
+    }
+
+    &#slider-next{
+      right:0px;
+
+      &:before{
+        float:right;
+      }
+
+      &:after{
+        border-top: 28px solid transparent;
+        border-bottom: 28px solid transparent;
+        border-left: 42px solid #d2d2d2;
+        border-left: 42px solid rgba(255,255,255,0.4);
+
+        right:16px;
+      }
+    }
+    &#slider-prev{
+
+      &:before{
+        float:left;
+      }
+
+      &:after{
+        border-top: 28px solid transparent;
+        border-bottom: 28px solid transparent;
+        border-right: 42px solid #d2d2d2;
+        border-right: 42px solid rgba(255,255,255,0.4);
+
+        left:16px;
+      }
+    }
+  }
+}
+#slider-next{
+  right:0px;
+  margin-right: 0.9375em;
+  text-align:right;
+
+  &.photo-control{
+    margin-right:0.5em;
+
+  }
+
+}
+
+#target-slider{
+  width:100%; 
+  min-height:100px;
+  overflow:hidden;
+  position:relative;
+  -webkit-transition: height 500ms;
+  -moz-transition: height 500ms;
+  -o-transition: height 500ms;
+  transition: height 500ms;
+  z-index:11;
+
+  .target-wrapper{
+    height:auto;
+    float:left;
+    display:block;
+    overflow:hidden;
+    z-index:11;
+    padding:0px 18px;
+
+    &.active{
+      padding:0px;
+    }
+    
+    *:not(span){
+      display:block;
+      background:#fff;
+      z-index:10;
+    }
+  }
+
+  .target-slider-inner{
+    -webkit-transition: left 500ms ease-out;
+    -moz-transition: left 500ms ease-out;
+    -o-transition: left 500ms ease-out;
+    transition: left 500ms ease-out;
+    position:absolute;
+    left:0px;
+  }
+}

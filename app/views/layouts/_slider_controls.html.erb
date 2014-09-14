@@ -1,0 +1,26 @@
+<div id="slider-controls">
+  <% if @post_type && @post_type.shifty_type && !["new","edit"].include?(params[:action]) %>
+    <%= link_to "javascript:void(0)", id:"slider-prev", data:{target_id:0}, title:"Previous" do %>
+      <div class="top-group">
+        <span class="hide-for-small">< Prev</span>
+        <span class="show-for-small"><</span>
+      </div>
+      <div class="bottom-group">
+        < Previous
+      </div>
+      
+    <% end %>
+    <%= link_to "javascript:void(0)", id:"slider-next", data:{target_id:0},title:"Next" do %>
+      <div class="top-group">
+        <span class="hide-for-small">Next ></span>
+        <span class="show-for-small">></span>
+      </div>
+      <div class="bottom-group">
+        Next >
+      </div>
+    <% end %>
+  <% elsif @photos && params[:controller] == "photos" %>
+    <%= link_to "", "javascript:void(0)", id:"slider-prev", class:"photo-control", data:{target_id:0}, title:"Previous" %>
+    <%= link_to "", "javascript:void(0)", id:"slider-next", class:"photo-control", data:{target_id:0}, title:"Next" %>
+  <% end %>
+</div>

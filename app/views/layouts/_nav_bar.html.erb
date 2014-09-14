@@ -1,0 +1,33 @@
+<div id="nav" class="row collapse text-center">
+  <% if @categories.count > 0 && @categories.first.name == "Home" %>
+    <% @categories = @categories.drop(1) %>
+  <% end %>
+  <% if @categories.length > 0 %>
+    <% column_width = (100.0/@categories.length).round(3) %>
+    <div id="main-menu-toggle" class="columns show-for-small">
+      <a href="javascript:void(0)" class="menu-toggle" data-menu-id="main-menu">Categories</a>
+    </div>
+    <div class="show-for-small columns">
+      <div id="main-menu" class="dropdown-menu show-for-small collapse clearout">
+        <% @categories.each do |cat| %>
+          <% unless cat.id == 1 %>
+            <div class="columns">
+              <%= link_to cat.name, "/#{cat.name.downcase.gsub(/ /,"_")}" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="hide-for-small">
+      <% @categories.each do |cat| %>
+        <% unless cat.id == 1 %>
+          <div class="columns" style="width:<%= column_width %>%;">
+            <%= link_to cat.name, "/#{cat.name.downcase.gsub(/ /,"_")}" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <%= link_to "Create Post Type", new_post_type_path %>
+  <% end %>
+</div>

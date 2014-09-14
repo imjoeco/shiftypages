@@ -1,0 +1,22 @@
+<h1 class="text-center"><%= link_to @post.title, @post %></h1>
+<% if !@photo.image_file_size.nil? %>
+  <div class="image-border">
+    <%= image_tag @photo.image.url %>
+  </div>
+<% end %>
+<% if !@photo.farm.nil? %>
+  <div class="image-border">
+    <%= image_tag @photo.url_b %>
+    <% if !@prev_page.nil? %>
+      <%= link_to "Previous", @prev_page, class:"photo-prev photo-control" %>
+    <% end %>
+    <% if !@next_page.nil? %>
+      <%= link_to "Next", @next_page,title:"Next", class:"photo-next photo-control" %>
+    <% end %>
+  </div>
+
+  <h3 class="text-center top-18"><%= @photo.title %></h3>
+  <% if !@photo.description.nil? %>
+    <p class="text-center"><%= @photo.description %></p>
+  <% end %>
+<% end %>

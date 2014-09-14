@@ -1,0 +1,15 @@
+<div>
+  <%= link_to '<i class="fi-torso"></i> Personal Info'.html_safe, edit_user_path(current_user) %>
+</div>
+<div>
+  <%= link_to '<i class="fi-widget"></i> Site Settings'.html_safe, settings_path %>
+</div>
+<div>
+  <%= link_to '<i class="fi-archive"></i> Backup Site'.html_safe, backup_path %>
+</div>
+<div>
+  <%= link_to '<i class="fi-upload-cloud"></i> Restore Site'.html_safe, restore_path %>
+</div>
+<div>
+  <%= link_to '<i class="fi-lock"></i> Log out'.html_safe, signout_path, class:"right" %>
+</div>

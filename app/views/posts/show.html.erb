@@ -1,0 +1,70 @@
+<% if !@post.title.nil? %>
+  <% unless params[:action] == "home" %>
+    <% provide :title, @post.title %>
+  <% end %>
+
+  <h1 class="text-center"><%= @post.title %></h1>
+<% end %>
+
+<% if !@post.content.empty? %>
+  <div id="post-content">
+    <%= @post.content.html_safe %>
+  </div>
+
+  <% if !@post.photos.empty? %>
+    <ul id="target-list" class="no-bullet">
+      <% @post.photos.each_with_index do |photo, index| %>
+        <li>
+          <%= link_to "/posts/#{@post.id}/photos?target=#{index}" do %>
+            <%= image_tag photo.url_t %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <ul class="large-block-grid-6">
+      <% @post.photos.each_with_index do |photo, index| %>
+        <li>
+          <%= link_to "/posts/#{@post.id}/photos?target=#{index}" do %>
+            <%= image_tag photo.url_t %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% else %>
+  <% if !@post.photos.empty? %>
+    <div id="photo-post-main">
+      <% @post.photos.each_with_index do |photo, index| %>
+        <div class="target-wrapper<%= " active" if index == 0 %>" id="target-<%= index %>">
+          <div class="image-border">
+            <%= image_tag photo.url_b %>
+            <% if index > 0 %>
+              <%= link_to "Previous", "javascript:void(0)", data:{target_id:"#{index-1}"}, title:"Previous",class:"photo-prev photo-control" %>
+            <% end %>
+            <% if index < @post.photos.count - 1 %>
+              <%= link_to "Next", "javascript:void(0)", data:{target_id:"#{index+1}"},title:"Next", class:"photo-next photo-control" %>
+            <% end %>
+          </div>
+          <% if !photo.title.nil? %>
+            <h3 class="text-center top-18">
+              <%= link_to photo.title, photo %>
+            </h3>
+          <% end %>
+          <% if !photo.description.nil? %>
+            <p><%= photo.description %></p>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <ul id="target-list" class="no-bullet">
+      <% @post.photos.each_with_index do |photo, index| %>
+        <li>
+          <%= link_to "javascript:void(0)", data:{target_id:"#{index}"} do %>
+            <%= image_tag photo.url_t %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+<% end %>

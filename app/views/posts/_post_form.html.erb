@@ -1,0 +1,19 @@
+<% if @post.errors.any? %>
+  <ul class="no-bullet errors text-center">
+    <% @post.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= form_for @post, html:{class:"fedit"} do |f| %>
+  <h1 class="text-center">
+    <%= f.text_field :title, value:(@post.title.nil?)?"#{@post_type.name.titlecase.singularize} Title":@post.title.html_safe, class:"no-fedit" %>
+  </h1>
+  <div class="row">
+    <%= f.text_area :content, value:(@post.content.nil?)?"Content":@post.content.html_safe %>
+  </div>
+  <% if params[:post_type].present? %>
+    <%= f.hidden_field :post_type_id, value:params[:post_type] %>
+  <% end %>
+  <%= f.submit (params[:action] == "new")?"Create Post":"Save Edits", class:"button expand radius" %>
+<% end %>

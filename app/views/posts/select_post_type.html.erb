@@ -1,0 +1,30 @@
+<h1 class="text-center">New Post</h1>
+<div class="columns large-6 large-centered">
+  <ul class="pseudo-table no-bullet">
+    <li class="pseudo-headers text-center row">
+      <div class="columns">
+        Select Post Type
+      </div>
+    </li>
+    <% @post_types.each do |post_type| %>
+      <li class="row">
+        <div class="columns">
+          <%= link_to post_type.name, new_post_path(post_type: post_type.id) %>
+        </div>
+      </li>
+      <% children = PostType.where("parent_type_id = ?", post_type.id) %>
+      <% if !children.empty? %>
+        <% children.each do |child_type| %>
+          <li class="row">
+            <div class="columns">
+              <%= link_to "---- #{child_type.name}", new_post_path(post_type: child_type.id) %>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+  <div class="row">
+    <%= link_to '<i class="fi-plus"></i> Add Post Type'.html_safe, new_post_type_path, class:"button expand radius" %>
+  </div>
+</div>

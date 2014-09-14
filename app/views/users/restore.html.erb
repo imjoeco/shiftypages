@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="large-7 large-centered columns">
+    <h1 class="text-center">Restore Site</h1>
+    <p class="text-center bottom-18">
+      <b>Warning:</b> This will delete all existing records and will attempt to restore the site from the information on the backup file. Proceed with caution.
+    </p>
+    <%= form_tag restore_path, multipart: true do %>
+      <%= file_field_tag :backup_file %>
+      <%= label_tag :password %>
+      <%= password_field_tag :password %>
+      <%= submit_tag "Restore From Backup", class:"button expand radius" %>
+    <% end %>
+  </div>
+</div>

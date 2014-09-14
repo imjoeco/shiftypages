@@ -1,0 +1,64 @@
+<%= form_for @photo do |f| %>
+  <div class="columns large-10 large-centered">
+    <h4 class="text-center">Title</h4>
+    <%= f.label :title, "Photo Title", class:"hidden" %>
+    <%= f.text_field :title %>
+
+    <h4 class="text-center">Image</h4>
+    <%= f.label :image, class:"hidden" %>
+    <%= f.hidden_field :ow, value:"" %>
+    <%= f.hidden_field :oh, value:"" %>
+    <%= f.file_field :image %>
+  </div>
+  <div id="image-container" class="columns large-10 large-centered">
+    <div id="image-wrapper" style="position:relative;height:100%;width:100%;z-index:20;">
+      <div id="primary-drop" class="image-drop">
+        <span>Drag/Drop Image Here</span>
+      </div>
+      <img id="image-preview" src="#" 
+        style="display:none;" 
+        class="image-drop">
+      </img>
+      <div id="copy-notice" 
+        class="draggable" 
+        style="top:6px;left:6px;display:none;"
+      >
+        <% if !settings.copy_notice.nil? %>
+          <%= settings.copy_notice.html_safe %>
+        <% end %>
+      </div>
+    </div>
+    <div id="notice-settings">
+      <% if @photo_copyright %>
+        <%= render 'photos/photo_copyright_form' %>
+      <% end %>
+      <%= link_to "Save Default Settings", 
+        "javascript:void(0)", 
+        id:"update-copy-notice", 
+        class:"form-button"
+      %>
+    </div>
+  </div>
+  <div id="finalize-photo" 
+    class="columns large-10 large-centered" 
+    style="display:none"
+  >
+    <div class="columns small-6 small-centered top-12">
+      <%= link_to "&copy; Add Copyright".html_safe, 
+        "javascript:void(0)", 
+        id:"add-copyright", 
+        data:{notice:@default_copy.notice},
+        class:"button small radius expand" %>
+    </div>
+
+    <h4 class="text-center">Description</h4>
+    <%= f.label :description, class:"hidden" %>
+    <%= f.text_area :description, rows:10, style:"width:100%;" %>
+    <% if params[:post_id].present? %>
+      <%= f.hidden_field :post_id, value:params[:post_id] %>
+    <% end %>
+
+    <%= f.submit "Add Photo", class:"button expand top-12" %>
+  </div>
+<% end %>
+<%= javascript_include_tag 'jscolor/jscolor.js' %>

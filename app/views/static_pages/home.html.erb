@@ -1,0 +1,8 @@
+<% if !@post.content.empty? %>
+  <h1 class="text-center"><%= @post.title %></h1>
+<% end %>
+<% if !@post.content.empty? %>
+  <div id="post-content">
+    <%= @post.content.html_safe %>
+  </div>
+<% end %>

@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="large-7 large-centered columns">
+    <h1 class="text-center">Backup Site</h1>
+    <p class="text-center bottom-18">
+      This will create a backup file based on the current records and settings for the site. Please enter your password to continue.
+    </p>
+    <%= form_tag backup_path do %>
+      <%= label_tag :password %>
+      <%= password_field_tag :password %>
+      <%= submit_tag "Backup", class:"button expand radius top-18" %>
+    <% end %>
+  </div>
+</div>

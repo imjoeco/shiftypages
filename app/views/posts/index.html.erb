@@ -1,0 +1,44 @@
+<% if !@post_type.nil? %>
+  <% provide :title, @post_type.name %>
+  <h1 class="text-center"><%= @post_type.name.titlecase %></h1>
+<% else %>
+  <% provide :title, "All Posts" %>
+  <h1 class="text-center">All Posts</h1>
+<% end %>
+<% if !@post_type.nil? && @post_type.shifty_type %>
+  <%= render "posts/shifty_index" %>
+<% else %>
+  <ul class="no-bullet index-page">
+    <% if @child_types %>
+      <% @child_types.each do |child_type| %>
+        <%= link_to "/#{child_type.name.gsub(/ /,"_")}" do %> 
+          <li>
+            <%= child_type.name %> 
+            &nbsp; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+            <div class="page-number">&nbsp;&nbsp;[ + ]</div>
+          </li>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% @posts.each do |post| %>
+      <%= link_to post do %> 
+        <% if post.published_at.nil? %>
+          <li class="unpublished">
+        <% else %>
+          <li>
+        <% end %>
+          <%= post.title %> 
+          &nbsp; . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+          <div class="page-number">&nbsp;&nbsp;<%= post.id %></div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if signed_in? && !@post_type.nil? %>
+  <%= link_to '<i class="fi-plus"></i> Add Post'.html_safe, 
+    new_post_path(post_type:@post_type.id),
+    class:"button expand radius"
+  %>
+<% end %>

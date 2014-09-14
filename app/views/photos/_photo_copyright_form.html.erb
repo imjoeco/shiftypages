@@ -1,0 +1,50 @@
+<%= fields_for @photo_copyright do |copyright| %>
+  <div class="large-5 columns top-6">
+    <div class="row collapse">
+      <div class"columns top-6">
+        <%= copyright.label :notice, "Text" %>
+        <%= link_to 'Center',   
+          "javascript:void(0)", 
+          id:"notice-center",
+          class:"form-button"
+        %>
+      </div>
+      <div class="columns">
+        <%= copyright.text_field :notice %>
+      </div>
+    </div>
+  </div>
+  <div class="large-2 small-3 columns right text-center">
+    <%= copyright.label :color, "Color", class:"hidden" %>
+    <%= copyright.text_field :color, value:@default_copy.color, class:"color" %>
+  </div>
+  <div class="large-5 small-9 columns right top-6 bottom-24">
+    <div class="row collapse">
+      <div class="small-4 columns">
+        <%= copyright.label :opacity %>
+      </div>
+      <div class="small-8 columns">
+        <div class="slider" data-slider-target="photo_copyright_opacity">
+          <span class="active-segment"></span>
+          <span class="handle"></span>
+        </div>
+      </div>
+    </div>
+    <%= copyright.hidden_field :opacity, value:@default_copy.opacity %>
+
+    <div class="row collapse">
+      <div class="small-4 columns top-12">
+        <%= copyright.label :size %>
+      </div>
+      <div class="small-8 columns top-12">
+        <div class="slider" data-slider-target="photo_copyright_size">
+          <span class="active-segment"></span>
+          <span class="handle"></span>
+        </div>
+      </div>
+    </div>
+    <%= copyright.hidden_field :size, value:@default_copy.size %>
+    <%= copyright.hidden_field :top_offset, value:@default_copy.top_offset %>
+    <%= copyright.hidden_field :left_offset, value:@default_copy.left_offset %>
+  </div>
+<% end %>

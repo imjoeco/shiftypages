@@ -1,0 +1,41 @@
+<div class="columns">
+  <ul id="posts" class="no-bullet">
+    <% @posts.each do |post| %>
+      <li>
+        <% if !post.title.nil? %>
+          <h5><%= link_to post.title, post %></h5>
+        <% end %>
+        <% if !post.vimeo_id.nil? && !post.vimeo_id.empty? %>
+          <div class="flex-video widescreen vimeo">
+            <iframe src="//player.vimeo.com/video/<%= post.vimeo_id %>" 
+              width="100%" 
+              height="auto" 
+              frameborder="0" 
+              webkitallowfullscreen 
+              mozallowfullscreen 
+              allowfullscreen
+            >
+            </iframe>	
+          </div>
+        <% end %>
+        <% if !post.youtube_id.nil? && !post.youtube_id.empty? %>
+          <div class="flex-video widescreen">
+            <iframe width="100%" height="auto"
+              src="http://www.youtube.com/embed/<%= post.youtube_id %>"
+              frameborder="0">
+            </iframe>
+          </div>
+        <% end %>
+        <% if !post.image_file_size.nil? %>
+          <%= image_tag post.image.url(:large), class:"bottom-18" %>
+        <% end %>
+        <% if !post.content.nil? %>
+          <p>
+            <%= (post.content).gsub(/\n/,'<br/>').html_safe %>
+          </p>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <%= will_paginate @posts %>
+</div>

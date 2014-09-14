@@ -1,0 +1,44 @@
+<div id="page-footer" class="row collapse">
+  <% if !params[:id].nil? %>
+    <% if !@prev_page.nil? || !@next_page.nil? %>
+      <div class="large-4 small-12 columns text-center">
+        <span id="prev-page">
+          <% if !@prev_page.nil? %>
+          <%= link_to "&#9664;".html_safe, @prev_page %>
+          <% end %>
+        </span>
+        <% if params[:id] =~ /[0-9]+/ %>
+          <span id="page-number">
+            <%= params[:id] %>
+          </span>
+        <% end %>
+        <span id="next-page">
+          <% if !@next_page.nil? %>
+            <%= link_to "&#9654;".html_safe, @next_page %>
+          <% end %>
+        </span>
+      </div>
+    <% end %>
+    <div class="large-4 small-5 columns">
+      <% if @post_type %>
+      <%= link_to @post_type.name.titlecase, "/#{@post_type.name.gsub(/ /,"_")}" %>
+      <% else %>
+      <%= link_to params[:controller].titlecase, "/#{params[:controller]}" %>
+      <% end %>
+    </div>
+    <% if !settings.nil? %>
+      <div class="large-4 small-7 columns text-right">
+        <%= settings.copy_notice.html_safe %>
+      </div>
+    <% end %>
+  <% else %>
+    <% if !settings.nil? %>
+      <div class="small-5 columns">
+        <a href="#">Home</a>
+      </div>
+      <div class="small-7 columns text-right">
+        <%= settings.copy_notice.html_safe %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

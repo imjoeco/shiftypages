@@ -1,0 +1,60 @@
+<h1 class="text-center">Post Types</h1>
+<div class="columns large-10 large-centered">
+  <ul class="pseudo-table no-bullet">
+    <li class="pseudo-headers text-center row">
+      <div class="columns large-2 hide-for-small">
+        Date
+      </div>
+      <div class="columns small-6">
+        Title
+      </div>
+      <div class="columns large-4 small-6">
+        Modify
+      </div>
+    </li>
+    <% @post_types.each do |post_type| %>
+      <li class="row">
+        <div class="columns large-2 hide-for-small text-center">
+          <%= post_type.created_at.strftime("%-m-%-d-%y") %>
+        </div>
+        <div class="columns small-6">
+          <%= link_to post_type.name, "/#{post_type.name}" %>
+        </div>
+        <div class="text-center">
+          <div class="columns large-2 small-3">
+            <%= link_to "Edit", edit_post_type_path(post_type) %>
+          </div>
+          <div class="columns large-2 small-3">
+            <%= link_to "Delete", post_type, method: :delete, confirm:"Delete post_type?" %>
+          </div>
+        </div>
+      </li>
+
+      <% children = PostType.where("parent_type_id = ?", post_type.id) %>
+
+      <% if !children.empty? %>
+        <% children.each do |child_type| %>
+          <li class="row">
+            <div class="columns large-2 hide-for-small text-center">
+              <%= child_type.created_at.strftime("%-m-%-d-%y") %>
+            </div>
+            <div class="columns small-6">
+              <%= link_to "---- #{child_type.name}", child_type %>
+            </div>
+            <div class="text-center">
+              <div class="columns large-2 small-3">
+                <%= link_to "Edit", edit_post_type_path(child_type) %>
+              </div>
+              <div class="columns large-2 small-3">
+                <%= link_to "Delete", child_type, method: :delete, confirm:"Delete child_type?" %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+  <div class="row">
+    <%= link_to '<i class="fi-plus"></i> New Post Type'.html_safe, new_post_type_path, class:"button expand" %>
+  </div>
+</div>

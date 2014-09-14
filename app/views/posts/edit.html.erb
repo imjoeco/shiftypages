@@ -1,0 +1,7 @@
+<div id="form-container" class="columns">
+
+  <%= render 'post_form' %>
+  <script>
+    var photosJSON = <%= raw @post.photos.to_json %>;
+  </script>
+</div>

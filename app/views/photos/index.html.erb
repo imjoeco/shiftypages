@@ -1,0 +1,46 @@
+<h1 class="text-center" id="page-title"><%= link_to @post.title, @post %></h1>
+<% if @photos.length > 1 %>
+  <div id="target-slider">
+    <% @photos.each_with_index do |photo, index| %>
+      <div class="target-wrapper<%= " active" if index == 0 %>" id="target-<%= index %>">
+
+        <%#div class="image-border"%>
+          <%= image_tag photo.url_b, style:"z-index:0;" %>
+        <%#/div%>
+
+        <% if !photo.title.nil? %>
+          <h3 class="text-center top-18">
+            <%= link_to photo.title, photo %>
+          </h3>
+        <% end %>
+
+        <% if !photo.description.nil? %>
+          <p><%= photo.description %></p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <% photo = @photos.first %>
+
+  <%= image_tag photo.url_b, style:"z-index:0;" %>
+
+  <% if !photo.title.nil? %>
+    <h3 class="text-center top-18">
+      <%= link_to photo.title, photo %>
+    </h3>
+  <% end %>
+
+  <% if !photo.description.nil? %>
+    <p><%= photo.description %></p>
+  <% end %>
+<% end %>
+<ul id="target-list" class="no-bullet">
+  <% @photos.each_with_index do |photo, index| %>
+    <li>
+      <%= link_to "javascript:void(0)", data:{target_id:"#{index}"} do %>
+        <%= image_tag photo.url_t %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

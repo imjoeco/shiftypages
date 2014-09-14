@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  notice: MyString
+  opacity: 1.5
+  color: MyString
+  top_offset: 1.5
+  left_offset: 1.5
+  photo_id: 1
+
+two:
+  notice: MyString
+  opacity: 1.5
+  color: MyString
+  top_offset: 1.5
+  left_offset: 1.5
+  photo_id: 1

@@ -1,0 +1,50 @@
+<% if !["new","edit"].include?(params[:action]) %>
+  <div class="columns large-2 left">
+    <%= link_to '<i class="fi-plus"></i> New Post'.html_safe, new_post_path %>
+  </div>
+<% end %>
+
+<% if @photo && params[:action] != "new" %>
+  <div class="columns large-2 left">
+    <%= link_to '<i class="fi-trash"></i> Delete Photo'.html_safe, 
+      @photo, 
+      method: :delete,
+      confirm:"Are you sure?"
+    %>
+  </div>
+<% elsif @post && params[:controller] != "photos" && ["show","index", "home"].include?(params[:action]) %>
+
+  <div class="columns large-2 left">
+    <%= link_to '<i class="fi-page-edit"></i> Edit Post'.html_safe, 
+      edit_post_path(@post),
+      id: "edit_link"
+    %>
+  </div>
+
+  <div class="columns large-2 left">
+    <%= link_to '<i class="fi-photo"></i> Add Photo'.html_safe, "/posts/#{@post.id}/photos/new" %>
+  </div>
+
+  <% if @post.id != 1 %>
+    <% if @post.published_at.nil? %>
+      <div class="columns large-2 left">
+        <%= link_to '<i class="fi-check"></i> Publish'.html_safe, 
+          "/posts/#{@post.id}/publish" %>
+      </div>
+    <% else %>
+      <div class="columns large-2 left">
+        <%= link_to '<i class="fi-x"></i> Unpublish'.html_safe, 
+          "/posts/#{@post.id}/unpublish",
+          confirm:"Unpublish post?" %>
+      </div>
+    <% end %>
+
+    <div class="columns large-2 left">
+      <%= link_to '<i class="fi-trash"></i> Delete Post'.html_safe, 
+        @post,
+        method: :delete,
+        confirm:"Delete #{@post_type.name}?"
+      %>
+    </div>
+  <% end %>
+<% end %>

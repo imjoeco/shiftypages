@@ -1,0 +1,49 @@
+<div class="columns large-7 large-centered">
+  <% if @user_setting.errors.any? %>
+    <ul class="no-bullet errors">
+      <% @user_setting.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form_for @user_setting do |f| %>
+    <%= f.label :title, "Site Title", class:"required" %>
+    <%= f.text_field :title, :autofocus => true %>
+
+    <%= f.label :copy_notice, "Copyright Notice", class:"required" %>
+    <%= f.text_field :copy_notice %>
+
+    <%= f.label :slogan %>
+    <%= f.text_field :slogan %>
+
+    <%= f.label :time_zone %>
+    <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones %>
+
+    <%= f.label :font_link %>
+    <%= f.text_field :font_link %>
+
+    <%= f.label :font_style %>
+    <%= f.text_field :font_style %>
+
+    <% if params[:action] == "new" %>
+      <h3 class="text-center top-12">Flickr Authorization</h3>
+      <div class="text-center top-12 bottom-12 line-15">
+        You need to give the blog permission to write to your Flickr account. Please click the "Authorize App" button below, authorize the app on Flickr, and copy and paste the resulting verification code into the field below.  
+      </div>
+      <div class="columns small-8 large-centered small-centered top-24">
+        <%= link_to '<i class="fi-unlock"></i> Authorize App'.html_safe, 
+          current_user.validate_flickr_url,
+          target:"_blank",
+          class:"button expand radius"
+        %>
+      </div>
+
+      <%= f.label :flickr_token, "Flickr Validation Code", class:"required" %>
+      <%= f.text_field :flickr_token %>
+    <% end %>
+
+    <%= f.submit (params[:action] == "new")?"Finish Site":"Update Settings", 
+      class:"button expand top-24 radius" 
+    %>
+  <% end %>
+</div>

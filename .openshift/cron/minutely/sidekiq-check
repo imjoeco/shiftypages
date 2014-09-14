@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cd $OPENSHIFT_ROOT_DIR
+if ps -p `cat redis/pid/redis.pid` 2>&1 >/dev/null; then
+  cd $OPENSHIFT_REPO_DIR
+  sidekiq_log="log/sidekiq.log"
+  sidekiq_pid="tmp/sidekiq.pid"
+
+  if ps -p `cat ${sidekiq_pid}` 2>&1 >/dev/null; then
+    echo "allswell with sidekiq" >/dev/null
+  else
+    nohup bundle exec sidekiq > ${sidekiq_log} 2>&1 &
+    echo $! > ${sidekiq_pid}
+    echo "sidekiq started"
+  fi
+fi

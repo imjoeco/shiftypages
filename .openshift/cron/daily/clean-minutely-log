@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd $OPENSHIFT_ROOT_DIR
+echo "" > app-root/logs/cron_minutely.log

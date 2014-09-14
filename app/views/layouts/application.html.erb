@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="ie9" lang="en"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= full_title(yield(:title)) %></title>
+    <% if false %>
+      <link rel="shortcut icon" href="/assets/favicon.ico" type="image/vnd.microsoft.icon">
+    <% end %>
+
+    <%= stylesheet_link_tag    "application" %>
+    <% if settings && !settings.font_style.nil? & !settings.font_link.nil? %>
+      <%= settings.font_link.html_safe %>
+      <style type="text/css">
+        body,
+        body *{
+          <%= settings.font_style.html_safe %>
+        }
+      </style>
+    <% end %>
+
+    <%= javascript_include_tag "vendor/custom.modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <div id="main-wrapper">
+      <% if signed_in? %>
+        <%= render 'layouts/top_bar' %>
+      <% end %>
+      <div id="main">
+        <div id="greyout" style="display:none;"></div>
+        <div id="clearout" style="display:none;"></div>
+        <div id="main-content" class="row">
+          <%= render 'layouts/header' %>
+          <div id="body" class="row" style="position:relative;">
+            <div class="columns large-11 large-centered">
+              <% flash.each do |name, msg| %>
+                <%= content_tag :div, msg, class:"#{name} text-center flash" %>
+              <% end %>
+
+              <%= yield %>
+              <%= render 'layouts/slider_controls' %>
+              <%= render 'layouts/footer' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <%= javascript_include_tag "application" %>
+    <% if signed_in? %>
+      <%= javascript_include_tag "admin" %>
+    <% end %>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<div class="contain-to-grid">
+  <nav class="top-bar">
+    <section class="top-bar-section row">
+      <div class="top-bar-controls">
+        <div id="post-menu-toggle" class="columns small-6 show-for-small">
+          <a href="javascript:void(0)" class="menu-toggle" data-menu-id="post-menu">
+            <i class="fi-page-multiple"></i> Posts
+          </a>
+        </div>
+        <div id="account-menu-toggle" class="columns small-6 large-2 right text-right">
+          <a href="javascript:void(0)" class="menu-toggle" data-menu-id="account-menu">
+            <i class="fi-results-demographics"></i> Account
+          </a>
+        </div>
+      </div>
+
+      <div class="columns large-10 hide-for-small text-center">
+        <div class="large-2 columns text-center">
+          <a href="javascript:void(0)" class="menu-toggle" data-menu-id="posts-sub-menu">
+            <i class="fi-book"></i> All Posts
+          </a>
+        </div>
+
+        <%= render 'layouts/post_menu' %>
+      </div>
+
+      <div class="columns show-for-small">
+        <div id="post-menu" class="collapse text-center dropdown-menu shadow">
+          <%= render 'layouts/post_menu' %>
+        </div>
+      </div>
+
+      <div class="large-2 columns z-100">
+        <div id="posts-sub-menu" class="collapse text-center dropdown-menu shadow">
+          <div class="columns">
+            <%= link_to '<i class="fi-list-bullet"></i> Post List'.html_safe, posts_path %>
+          </div>
+
+          <div class="columns no-padding left">
+            <%= link_to '<i class="fi-results"></i> Post Types'.html_safe, post_types_path %>
+          </div>
+        </div>
+      </div>
+
+      <div class="columns large-2 right">
+        <div id="account-menu" class="collapse text-center dropdown-menu shadow">
+          <%= render 'layouts/account_menu' %>
+        </div>
+      </div>
+    </section>
+  </nav>
+</div>

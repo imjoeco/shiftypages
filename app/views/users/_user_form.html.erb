@@ -1,0 +1,50 @@
+<div class="columns large-7 large-centered">
+  <% if params[:action] == "edit" %>
+    <div class="text-center bottom-12 small-7 small-centered columns">
+      <%= link_to '<i class="fi-key"></i> Change Password'.html_safe, password_reset_path, class:"button expand small radius" %>
+    </div>
+  <% end %>
+  <% if @user.errors.any? %>
+    <ul class="no-bullet errors text-center">
+      <% @user.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form_for @user do |f| %>
+    <%= f.label :name, "Your Name", class:"required" %>
+    <%= f.text_field :name, :autofocus => true %>
+
+    <%= f.label :email, class:"required" %>
+    <%= f.text_field :email %>
+
+    <% if params[:action] == "new" || params[:action] == "create" %>
+      <%= f.label :password, class:"top-24 required" %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, class:"required" %>
+      <%= f.password_field :password_confirmation %>
+
+      <h3 class="text-center top-12">Flickr API</h3>
+      <div class="text-center line-15">
+        To use Flickr image hosting you must obtain Flickr API access. To apply for a key, click the "Create Key" button. Once you have your key and shared secret, copy and paste them into the fields below.
+      </div>
+
+      <div class="columns small-8 small-centered top-24">
+        <%= link_to '<i class="fi-key"></i> Create Key'.html_safe, 
+          "https://www.flickr.com/services/apps/create/apply/", 
+          target:"_blank",
+          class:"button expand radius" 
+        %>
+      </div>
+
+      <%= f.label :flickr_api_key, "API Key", class:"required" %>
+      <%= f.text_field :flickr_api_key %>
+
+      <%= f.label :flickr_shared_secret, "Shared Secret", class:"required" %>
+      <%= f.text_field :flickr_shared_secret %>
+    <% end %>
+
+    <%= f.submit (params[:action]=="new")?"Save & Continue":"Update Account", class:"button expand radius top-24" %>
+  <% end %>
+</div>

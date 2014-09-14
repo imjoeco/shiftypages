@@ -1,0 +1,33 @@
+<%= form_for @post_type, :html => {class:"large-7 large-centered columns"} do |f| %>
+  <%= f.label :name, class:"required" %>
+  <%= f.text_field :name %>
+
+  <% if false %>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  <% end %>
+
+  <% if !@post_types.empty? %>
+    <%= f.label :parent_type_id, "Parent Type (optional)" %>
+    <%= f.collection_select :parent_type_id, @post_types, :id, :name, {:prompt => "None"} %>
+  <% end %>
+
+  <div class="row">
+    <div class="small-6 columns">
+      <%= f.label :shifty_type, class:"check-label" do %>
+        <%= f.check_box :shifty_type %>
+        Shifty Type
+      <% end %>
+    </div>
+    <div class="small-6 columns">
+      <%= f.label :hidden_type, class:"check-label" do %>
+        <%= f.check_box :hidden_type %>
+        Hidden Type
+      <% end %>
+    </div>
+  </div>
+
+  <%= f.submit (params[:action] == "new")?"Create Post":"Update Post",
+    class:"button expand radius"
+  %>
+<% end %>
