@@ -21,7 +21,7 @@ Openshift Installation
 7. When that finishes, navigate to the new application's directory, add the shiftypages code and push it to Openshift with: 
 
         cd shiftypages
-        git remote add upstream -m master https://github.com/makewavesnotwar/shiftypages.git
+        git remote add upstream -m master https://github.com/imjoeco/shiftypages.git
         git pull -s recursive -X theirs upstream master
         git push
 
